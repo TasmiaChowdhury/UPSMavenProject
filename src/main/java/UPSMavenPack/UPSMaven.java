@@ -17,30 +17,35 @@ public class UPSMaven {
 		WebDriver driver = new ChromeDriver(); // this is parent-child upcasting 
 		
 		
-		driver.get("https://www.ups.com"); // this will open the browser 
-		driver.manage().window().maximize(); // this is to maximize the webpage
+		driver.get("https://www.ups.com/ship/guided/origin"); 
+		driver.manage().window().maximize(); 
 		
-		WebElement signInIcon=driver.findElement(By.xpath("//*[@id=\"ups-navContainer\"]/header/div/div/a/span"));
-		signInIcon.click();
+		//using relative xpath 
+		driver.findElement(By.xpath("//select[@id='origin-cac_country']")).sendKeys("United State");
+		driver.findElement(By.xpath(" //input[@id='origin-cac_companyOrName']")).sendKeys("CPHL Company");;
 		
-		WebElement userID= driver.findElement(By.xpath("//*[@id=\"email\"]"));
-		WebElement password= driver.findElement(By.xpath("//*[@id=\"pwd\"]"));
-		WebElement submitButton= driver.findElement(By.xpath("//*[@id=\"submitBtn\"]"));
+		//Xpath with or operator 
+		driver.findElement(By.xpath("//input[@id='origin-cac_contactName' or @name='cac_contactName']")).sendKeys("Tasmia C");;
 		
-		userID.sendKeys(new String[] {"Tasmiarahi95@gmail.com"});
-		password.sendKeys(new String[] {"password"});
-		submitButton.click();
+		//Xpath using And 
+		driver.findElement(By.xpath("//input[@id='origin-cac_singleLineAddress' and @name='cac_singleLineAddress']")).sendKeys("219 crown ave.Floral prak.11001");;
 		
-WebElement errorMessages=driver.findElement(By.id("errorMessages"));
+		//xpath using Contains()
+		//tagname[contains(@Attribute,'value')]
+		driver.findElement(By.xpath("//input[contains (@id, 'origin-cac_email')]")).sendKeys("Tasmiarahi95@gmail.com");;
 		
-		String error =errorMessages.getText();// fetching the output error 
+		//xpath using starts_with 
+		//tagname[starts_with(@Attribute,'value')]
+		driver.findElement(By.xpath("//input[starts-with(@name,'cac_phone')]")).sendKeys("123456789");
 		
-	
-		if (error.contains("Something seems to have gone wrong.")){
-			System.out.println("PASSED!!");
-		}else{
-			System.out.println("FAILED!!");
-		}
+		
+		driver.findElement(By.xpath("//input[@id='origin-cac_extension']")).sendKeys("897");;
+		//Xpath using text()
+		driver.findElement(By.xpath("//button[text()='Continue']")).click();;
+		
+		
+
+		
 		
 		
 		Thread.sleep(2000);// this is to give time how long you want it to take. 2 sec
